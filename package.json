@@ -2,7 +2,7 @@
   "name": "adapi",
   "version": "1.0.0",
   "description": "adApi",
-  "main": "app.js",
+  "main": "rout/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/1waas1/adApi#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "nodemon": "^2.0.7"
   }
 }

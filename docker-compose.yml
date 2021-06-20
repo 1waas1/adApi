@@ -6,14 +6,17 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: nodejs
-    restart: always
+    restart: unless-stopped
     environment:
       - MYSQL_USER=$MYSQL_USER
       - MYSQL_PASSWORD=$MYSQL_PASSWORD
       - MYSQL_DATABASE=$MYSQL_DATABASE
     ports:
       - "127.0.0.1:8080:8080"
-    network_mode: host
+    networks:
+      - app-network
+    volumes:
+      - ./rout/:/usr/src/app/rout/
 
   db:
     image: mysql:5.7
