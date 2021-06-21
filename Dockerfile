@@ -4,8 +4,8 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-RUN npm install
+RUN npm install && npm install nodemon
 
 EXPOSE 8080
 
-CMD [ "nodemon", "./rout/app.js" ]
+CMD ["npm", "run", "start"]

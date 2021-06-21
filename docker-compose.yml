@@ -11,14 +11,16 @@ services:
       - MYSQL_USER=$MYSQL_USER
       - MYSQL_PASSWORD=$MYSQL_PASSWORD
       - MYSQL_DATABASE=$MYSQL_DATABASE
+      - NODEJS_PORT=$NODEJS_PORT
     ports:
       - "127.0.0.1:8080:8080"
     networks:
       - app-network
     volumes:
-      - ./rout/:/usr/src/app/rout/
+      - ./src/:/usr/src/app/src/
+      - ./templates/:/usr/src/app/templates/
 
-  db:
+  mysql:
     image: mysql:5.7
     container_name: mysql
     restart: always

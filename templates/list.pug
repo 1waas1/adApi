@@ -1,0 +1,24 @@
+html
+    head
+        title Test
+    body
+        ul
+            li Текущая сортировка
+            li
+                a(href=fieldSort.href) #{fieldSort.name}
+            li
+                a(href=paramSort.href) #{paramSort.name}
+
+        each item in adsList
+            div
+                h2 #{item.title}
+                div #{item.description}
+                div #{item.image}
+                div #{item.price}
+                div #{item.date}
+        div
+            if currentPage <= quantityPages && currentPage > 1
+                a(href=paginationLinks.prev) Назад
+            br
+            if currentPage < quantityPages
+                a(href=paginationLinks.next) Дальше
