@@ -5,8 +5,14 @@ class ItemAds {
         this.mysql = new mysqlServices();
     }
 
-    async getAd(id){
-        let ad = await this.mysql.mysqlQuery(`SELECT id, title, images, price FROM ads WHERE id = ?`, id);
+    async getAd(id, additionalFields){
+        let query = `SELECT id, title, images, price FROM ads WHERE id = ?`;
+
+        if (additionalFields !== undefined && additionalFields.includes('description')){
+            query = `SELECT id, title, images, price, description FROM ads WHERE id = ?`;
+        }
+
+        let ad = await this.mysql.mysqlQuery(query, id);
 
         if (ad.length){
             return ad[0]

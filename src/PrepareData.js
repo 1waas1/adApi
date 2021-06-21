@@ -93,12 +93,25 @@ class PrepareData{
         }
     }
 
-    async getItemAds(id){
+    async getItemAds(id, additionalFields){
         if (!Number.isInteger(id)){
             return null
         }
+        //
+        // let listFields = await this.mysql.mysqlQuery('SHOW COLUMNS FROM ads;');
+        //
+        // if (additionalFields !== undefined){
+        //     additionalFields = additionalFields.filter(item => {
+        //         for (let item in listFields) {
+        //             if (additionalFields.includes(item['Field'])){
+        //                 return true
+        //             }
+        //         }
+        //     })
+        // }
+        // console.log(additionalFields)
 
-        return await this.apiItem.getAd(id)
+        return await this.apiItem.getAd(id, additionalFields)
     }
 }
 
