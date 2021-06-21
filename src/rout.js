@@ -1,4 +1,5 @@
-const prepareDataFile = require('./PrepareData')
+const prepareDataFile = require('./PrepareData');
+const bodyParser = require('body-parser')
 const express = require('express');
 const path = require('path');
 
@@ -8,7 +9,8 @@ const app = express();
 let prepareData = new prepareDataFile()
 
 app.set('views', `${path.dirname(__dirname)}/templates`);
-app.set('view engine', 'pug')
+app.set('view engine', 'pug');
+app.use(bodyParser.json());
 
 app.get('/', async (req, res) => {
     res.redirect('ads-list/1')
@@ -82,5 +84,20 @@ app.get('/ads/:id', async (req, res) => {
             .json(ad);
     }
 });
+
+app.post('/create', async (req, res) => {
+    let adsId = await prepareData.createAds(req.body);
+
+    if (adsId === null){
+        res.status(404)
+            .type('application/json')
+            .json({'error':'Not create ads'})
+    }
+    else {
+        res.status(200)
+            .type('application/json')
+            .json({'id': adsId, 'code': 200});
+    }
+})
 
 app.listen(port);

@@ -1,6 +1,7 @@
 const mysqlServices = require('./services/MysqlConnect');
 const apiAdsList = require('./api/ListAds');
 const apiAdsItem = require('./api/ItemAds');
+const apiCreateAds = require('./api/CreateAds');
 
 class PrepareData{
     constructor() {
@@ -8,6 +9,7 @@ class PrepareData{
         this.mysql = new mysqlServices();
         this.apiList = new apiAdsList(this.quantityEntries);
         this.apiItem = new apiAdsItem();
+        this.apiCreate = new apiCreateAds();
     }
 
     async getPaginationListAds(page, sortField = 'date', sortParam = 'ASC'){
@@ -112,6 +114,13 @@ class PrepareData{
         // console.log(additionalFields)
 
         return await this.apiItem.getAd(id, additionalFields)
+    }
+
+    async createAds(data){
+        if (data?.images){
+            data.images = JSON.stringify(data.images);
+        }
+        return await this.apiCreate.setAds(data)
     }
 }
 
