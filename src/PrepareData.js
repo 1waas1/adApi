@@ -3,9 +3,9 @@ const apiAdsList = require('./api/ListAds');
 
 class PrepareData{
     constructor() {
-        this.mysql = new mysqlServices();
-        this.apiList = new apiAdsList();
         this.quantityEntries = 10;
+        this.mysql = new mysqlServices();
+        this.apiList = new apiAdsList(this.quantityEntries);
     }
 
     async getPaginationListAds(page, sortField = 'date', sortParam = 'ASC'){
