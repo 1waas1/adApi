@@ -5,7 +5,7 @@ class PrepareData{
     constructor() {
         this.mysql = new mysqlServices();
         this.apiList = new apiAdsList();
-        this.quantityEntries = 1;
+        this.quantityEntries = 10;
     }
 
     async getPaginationListAds(page, sortField = 'date', sortParam = 'ASC'){

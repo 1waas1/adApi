@@ -2,7 +2,7 @@ const mysqlServices = require('../services/MysqlConnect');
 
 class ListAds {
     constructor() {
-        this.quantityEntries = 1;
+        this.quantityEntries = 10;
         this.mysql = new mysqlServices();
     }
 
