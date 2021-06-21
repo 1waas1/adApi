@@ -18,13 +18,8 @@ app.get('/', async (req, res) => {
 
 app.get('/ads/:page', async (req, res) => {
     let page = parseInt(req.params.page)
-    let sortField = req.query?.field;
-    let paramSort = req.query?.params;
-
     let information = prepareData.getTemplateInfo(req.query)
-    let paginationLinks = prepareData.getPaginationLinks(req.query, page, '/ads')
-
-    let adsList = await prepareData.getPaginationListAds(page, sortField, paramSort)
+    let adsList = await prepareData.getPaginationListAds(page, req.query?.field,  req.query?.params)
 
     if (adsList === null){
         res.send({'error':'Page not found'})
@@ -34,7 +29,7 @@ app.get('/ads/:page', async (req, res) => {
             {
                 'adsList': adsList,
                 'currentPage': page,
-                'paginationLinks': paginationLinks,
+                'paginationLinks': prepareData.getPaginationLinks(req.query, page, '/ads'),
                 'quantityPages': await prepareData.getQuantityPages(),
                 'fieldSort': information.fieldSort,
                 'paramSort': information.paramSort,
