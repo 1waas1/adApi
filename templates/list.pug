@@ -1,6 +1,6 @@
 html
     head
-        title Test
+        title #{item.title}
     body
         ul
             li Текущая сортировка
@@ -15,7 +15,6 @@ html
                 div #{item.description}
                 div #{item.image}
                 div #{item.price}
-                div #{item.date}
         div
             if currentPage <= quantityPages && currentPage > 1
                 a(href=paginationLinks.prev) Назад

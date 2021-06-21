@@ -1,11 +1,13 @@
 const mysqlServices = require('./services/MysqlConnect');
 const apiAdsList = require('./api/ListAds');
+const apiAdsItem = require('./api/ItemAds');
 
 class PrepareData{
     constructor() {
         this.quantityEntries = 10;
         this.mysql = new mysqlServices();
         this.apiList = new apiAdsList(this.quantityEntries);
+        this.apiItem = new apiAdsItem();
     }
 
     async getPaginationListAds(page, sortField = 'date', sortParam = 'ASC'){
@@ -18,12 +20,7 @@ class PrepareData{
     }
 
     async getListAds(sortField = 'date', sortParam = 'ASC'){
-        let allAdsList = await this.apiList.allList(sortField, sortParam);
-
-        if (allAdsList === null){
-            return {'error':'Entries not found'}
-        }
-        return allAdsList
+      return await this.apiList.allList(sortField, sortParam);
     }
 
     getTemplateInfo(requestParams){
@@ -94,6 +91,14 @@ class PrepareData{
             'next': `${partLink}/${nextPage}/?field=${field}&params=${params}`,
             'prev': `${partLink}/${prevPage}/?field=${field}&params=${params}`
         }
+    }
+
+    async getItemAds(id){
+        if (!Number.isInteger(id)){
+            return null
+        }
+
+        return await this.apiItem.getAd(id)
     }
 }
 
