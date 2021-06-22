@@ -14,13 +14,10 @@ class CreatedTable {
                 images      text                                null,
                 price       int(6)    default 0                 not null,
                 date        timestamp default CURRENT_TIMESTAMP not null,
+                CONSTRAINT primary_id PRIMARY KEY (id),
                 constraint announcements_id_uindex
                     unique (id)
-            );
-            
-            alter table ads
-                add primary key (id);
-            
-            `)
+            ) ENGINE=innoDB DEFAULT CHARSET=utf8;`
+        )
     }
 }
