@@ -1,5 +1,18 @@
 html
     head
-        title Test
+        title Create ads
     body
-        div test test test
+        form(method='post', action="/ads-create")
+            label Имя
+                input(type='text', name='title', required)
+            br
+            label Описание
+                input(type='text', name='description', required)
+            br
+            label Список ссылок (link1; link2;...)
+                input(type='text', name='images', required)
+            br
+            label Цена
+                input(type='number', name='price', value='0')
+            br
+            button(type='submit') Создать

@@ -53,6 +53,25 @@ app.get('/ads-item/:id', async (req, res) => {
 
 });
 
+app.get('/ads-create', async (req, res) => {
+    res.render('form')
+});
+
+app.post('/ads-create', bodyParser.urlencoded({extended: false}), async (req, res) => {
+    let adsId = await prepareData.createAds(req.body);
+
+    if (adsId === null){
+        res.status(404)
+            .type('text/html')
+            .send('<h3>Announcement not created</h3>')
+    }
+    else {
+        res.status(200)
+            .type('text/html')
+            .send(`<h3>Announcement created. Id - ${adsId}</h3>`);
+    }
+});
+
 app.get('/list', async (req, res) => {
     let allAdsList = await prepareData.getListAds()
     res.set('Cache-control', `no-store`);
@@ -91,7 +110,7 @@ app.post('/create', async (req, res) => {
     if (adsId === null){
         res.status(404)
             .type('application/json')
-            .json({'error':'Not create ads'})
+            .json({'error':'Announcement not created'})
     }
     else {
         res.status(200)
