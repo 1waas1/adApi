@@ -10,7 +10,7 @@ class ListAds {
         try{
             let startEntries = (page - 1) * this.quantityEntries
             let arrayAds = await this.mysql.mysqlQuery(
-                `SELECT title, images FROM ads ORDER BY ${sortField} ${sortParam} LIMIT ${startEntries}, ${this.quantityEntries}`
+                `SELECT id, title, images FROM ads ORDER BY ${sortField} ${sortParam} LIMIT ${startEntries}, ${this.quantityEntries}`
             );
 
             if (!arrayAds.length){
