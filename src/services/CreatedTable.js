@@ -6,7 +6,7 @@ class CreatedTable {
     }
 
     async createAds(){
-        await this.mysql.mysqlQuery(`create table if not exists ads
+        await this.mysql.mysqlQuery(`create table if not exists ads1
             (
                 id          int auto_increment,
                 title       varchar(200)                        not null,
@@ -18,6 +18,11 @@ class CreatedTable {
                 constraint announcements_id_uindex
                     unique (id)
             ) ENGINE=innoDB DEFAULT CHARSET=utf8;`
-        )
+        ).then(() => {
+            console.log('Done!')
+        })
     }
 }
+
+let created = new CreatedTable();
+created.createAds()
