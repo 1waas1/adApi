@@ -123,7 +123,13 @@ class PrepareData{
 
     async createAds(data){
         if (data?.images){
-            data.images = JSON.stringify(data.images.split('; '));
+            data.images = data.images.split('; ');
+
+            if (data.images.length > 3){
+                return null
+            }
+
+            data.images = JSON.stringify(data.images);
         }
         return await this.apiCreate.setAds(data)
     }
