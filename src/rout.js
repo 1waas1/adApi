@@ -40,7 +40,7 @@ app.get('/ads-list/:page', async (req, res) => {
 });
 
 app.get('/ads-item/:id', async (req, res) => {
-    let ad = await prepareData.getItemAds(parseInt(req.params.id))
+    let ad = await prepareData.getItemAds(parseInt(req.params.id), ['description'])
 
     if (ad === null){
         res.status(404)

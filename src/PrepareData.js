@@ -102,9 +102,12 @@ class PrepareData{
             return null
         }
         let listFields = await this.mysql.mysqlQuery('SHOW COLUMNS FROM ads;');
+        listFields = listFields.map(item => item.Field);
+
         let existFields = []
 
-        for (let field in additionalFields){
+        for (let item in additionalFields){
+            let field = additionalFields[item];
             if (listFields.indexOf(field) !== -1){
                 existFields.push(field)
             }

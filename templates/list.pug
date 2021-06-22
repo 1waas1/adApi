@@ -10,10 +10,10 @@ html
                 a(href=paramSort.href) #{paramSort.name}
 
         each item in adsList
-            div
+            div(style='text-align:center; margin-bottom: 40px')
                 h2
                     a(href='/ads-item/'+item.id) #{item.title}
-                img(src=item.images)
+                img(src=item.images, style='max-width: 300px')
         div
             if currentPage <= quantityPages && currentPage > 1
                 a(href=paginationLinks.prev) Назад
