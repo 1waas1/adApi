@@ -7,28 +7,22 @@ class ListAds {
     }
 
     async paginationList(page, sortField = 'date', sortParam = 'ASC'){
-        let startEntries = (page - 1) * this.quantityEntries
-        let arrayAds = await this.mysql.mysqlQuery(
-            `SELECT * FROM ads ORDER BY ${sortField} ${sortParam} LIMIT ${startEntries}, ${this.quantityEntries}`
-        );
+        try{
+            let startEntries = (page - 1) * this.quantityEntries
+            let arrayAds = await this.mysql.mysqlQuery(
+                `SELECT title, images FROM ads ORDER BY ${sortField} ${sortParam} LIMIT ${startEntries}, ${this.quantityEntries}`
+            );
 
-        if (!arrayAds.length){
+            if (!arrayAds.length){
+                return null
+            }
+
+            return arrayAds
+        }
+        catch{
             return null
         }
 
-        return arrayAds
-    }
-
-    async allList(sortField = 'date', sortParam = 'ASC'){
-        let arrayAds = await this.mysql.mysqlQuery(
-            `SELECT * FROM ads ORDER BY ${sortField} ${sortParam}`
-        );
-
-        if (!arrayAds.length){
-            return null
-        }
-
-        return arrayAds
     }
 }
 

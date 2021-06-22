@@ -13,16 +13,18 @@ class PrepareData{
     }
 
     async getPaginationListAds(page, sortField = 'date', sortParam = 'ASC'){
-        return this.apiList.paginationList(page, sortField, sortParam)
+        let paginationList = await this.apiList.paginationList(page, sortField, sortParam);
+
+       for (let item in paginationList){
+           paginationList[item].images = JSON.parse(paginationList[item].images)[0]
+       }
+
+       return paginationList
     }
 
     async getQuantityPages(page, sortField = 'date', sortParam = 'ASC'){
         let countEntry = await this.mysql.mysqlQuery('SELECT COUNT(*) as count FROM ads;');
         return Math.ceil(countEntry[0].count/this.quantityEntries)
-    }
-
-    async getListAds(sortField = 'date', sortParam = 'ASC'){
-      return await this.apiList.allList(sortField, sortParam);
     }
 
     getTemplateInfo(requestParams){

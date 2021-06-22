@@ -73,9 +73,10 @@ app.post('/ads-create', bodyParser.urlencoded({extended: false}), async (req, re
 });
 
 app.get('/list', async (req, res) => {
-    let allAdsList = await prepareData.getListAds()
-    res.set('Cache-control', `no-store`);
+    let page = parseInt(req.body?.page);
+    let allAdsList = await prepareData.getPaginationListAds(page, req.body?.field, req.body?.params)
 
+    res.set('Cache-control', `no-store`);
     if (allAdsList === null){
         res.status(404)
             .type('application/json')
