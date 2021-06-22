@@ -6,11 +6,9 @@ class ItemAds {
     }
 
     async getAd(id, additionalFields){
-        let query = `SELECT id, title, images, price FROM ads WHERE id = ?`;
+        let listFields = [...new Set(['id', 'title', 'images', 'price'].concat(additionalFields))].join(', ')
 
-        if (additionalFields !== undefined && additionalFields.includes('description')){
-            query = `SELECT id, title, images, price, description FROM ads WHERE id = ?`;
-        }
+        let query = `SELECT ${listFields} FROM ads WHERE id = ?`;
 
         let ad = await this.mysql.mysqlQuery(query, id);
 

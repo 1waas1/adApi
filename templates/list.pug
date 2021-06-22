@@ -11,10 +11,9 @@ html
 
         each item in adsList
             div
-                h2 #{item.title}
-                div #{item.description}
-                div #{item.image}
-                div #{item.price}
+                h2
+                    a(href='/ads-item/'+item.id) #{item.title}
+                img(src=item.images)
         div
             if currentPage <= quantityPages && currentPage > 1
                 a(href=paginationLinks.prev) Назад

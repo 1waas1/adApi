@@ -90,7 +90,7 @@ app.get('/list', async (req, res) => {
 });
 
 app.get('/ads/:id', async (req, res) => {
-    let ad = await prepareData.getItemAds(parseInt(req.params.id), req.query?.fields)
+    let ad = await prepareData.getItemAds(parseInt(req.params.id), req.body?.fields)
     res.set('Cache-control', `no-store`)
 
     if (ad === null){

@@ -97,25 +97,28 @@ class PrepareData{
         }
     }
 
-    async getItemAds(id, additionalFields){
+    async getItemAds(id, additionalFields = []){
         if (!Number.isInteger(id)){
             return null
         }
-        //
-        // let listFields = await this.mysql.mysqlQuery('SHOW COLUMNS FROM ads;');
-        //
-        // if (additionalFields !== undefined){
-        //     additionalFields = additionalFields.filter(item => {
-        //         for (let item in listFields) {
-        //             if (additionalFields.includes(item['Field'])){
-        //                 return true
-        //             }
-        //         }
-        //     })
-        // }
-        // console.log(additionalFields)
+        let listFields = await this.mysql.mysqlQuery('SHOW COLUMNS FROM ads;');
+        let existFields = []
 
-        return await this.apiItem.getAd(id, additionalFields)
+        for (let field in additionalFields){
+            if (listFields.indexOf(field) !== -1){
+                existFields.push(field)
+            }
+        }
+
+        let adsItem = await this.apiItem.getAd(id, existFields);
+
+        adsItem.images = JSON.parse(adsItem.images);
+
+        if (!additionalFields.includes('images')){
+            adsItem.images = adsItem.images[0];
+        }
+
+        return adsItem
     }
 
     async createAds(data){
