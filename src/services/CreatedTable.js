@@ -6,7 +6,7 @@ class CreatedTable {
     }
 
     async createAds(){
-        await this.mysql.mysqlQuery(`create table if not exists ads1
+        await this.mysql.mysqlQuery(`create table if not exists ads
             (
                 id          int auto_increment,
                 title       varchar(200)                        not null,
